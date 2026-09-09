@@ -271,9 +271,9 @@ return User::where($credentials)->first();
 
 Framework-level hardening (recommended to eliminate the sink class): reject non-whitelisted keys in `QueryBuilder::addWhere()` and never interpolate numeric-keyed values as raw SQL fragments. Operators of unpatched deployments should ensure `application.debug` is disabled in production, block/inspect `credentials[` array-key patterns at the WAF, and migrate away from the unmaintained project.
 
-## Related advisories (deduplication)
+## Related advisories 
 
-- **CVE-2021-44135 / GHSA-45hc-r4fj-qj89** — the only previously published Pagekit SQL injection — is a **different, authenticated** issue: ORDER BY injection via the comment-listing order setting saved by `SettingsController::configAction()`. The present advisory concerns a **pre-authentication** injection at the public login endpoint caused by array-key interpolation in `QueryBuilder::addWhere()`. The previously published advisory did not describe the `addWhere()` sink or the authentication vector.
+- **CVE-2021-44135 ** — the only previously published Pagekit SQL injection — is a **different, authenticated** issue: ORDER BY injection via the comment-listing order setting saved by `SettingsController::configAction()`. The present advisory concerns a **pre-authentication** injection at the public login endpoint caused by array-key interpolation in `QueryBuilder::addWhere()`. The previously published advisory did not describe the `addWhere()` sink or the authentication vector.
 
 ## References
 
@@ -281,4 +281,5 @@ Framework-level hardening (recommended to eliminate the sink class): reject non-
 - `app/modules/auth/src/Auth.php` (pass-through)
 - `app/system/modules/user/src/Auth/UserProvider.php` (unsanitized forwarding)
 - `app/modules/database/src/Query/QueryBuilder.php` (injection sink)
-- CVE-2021-44135 / GHSA-45hc-r4fj-qj89 (deduplication reference)
+- [CVE Record: CVE-2021-44135](https://www.cve.org/CVERecord?id=CVE-2021-44135) (deduplication reference)
+- [pagekit/pagekit: Pagekit CMS](https://github.com/pagekit/pagekit)
